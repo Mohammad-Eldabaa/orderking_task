@@ -10,8 +10,8 @@ export async function submitRegister(
   try {
     setSubmitting(true);
 
-    const response = await APIClient.post("/register", {
-      first_name: values.name,
+    const response = await APIClient.post("/auth/register", {
+      name: values.name,
       phone: values.phone,
       address: values.address,
       email: values.email,

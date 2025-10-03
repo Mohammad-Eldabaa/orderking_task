@@ -32,5 +32,4 @@ export const RegisterInitialValues = {
   phone: "",
   password: "",
   passwordConfirm: "",
-  address: "",
 };

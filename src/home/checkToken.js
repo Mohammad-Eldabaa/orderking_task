@@ -1,9 +1,11 @@
 import { store } from "../redux/store";
-import { isTokenExpire } from "../redux/APIClien";
-export const checkToken = async (token) => {
+import { APIClient, isTokenExpire } from "../redux/APIClien";
+import { clearToken } from "../redux/slice";
+
+export const checkToken = async (token, navigation) => {
   if (isTokenExpire(token)) {
     store.dispatch(clearToken());
-    window.location.replace("/Login");
+    navigation.replace("Login");
   }
-  console.log(isTokenExpire(token));
+  console.log("Token expired?", isTokenExpire(token));
 };

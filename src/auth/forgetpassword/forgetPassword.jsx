@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { styles } from "../login/style";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { APIClient } from "../../redux/APIClien";
 
-export default function ForgetPassword() {
+export default function ForgetPassword({ navigation }) {
   const [email, setEmail] = useState("");
   return (
     <View style={styles.container}>
@@ -16,7 +17,27 @@ export default function ForgetPassword() {
         value={email}
       />
 
-      <TouchableOpacity style={styles.button} onPress={() => {}}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          try {
+            const response = APIClient.post("auth/forget-password", {
+              email,
+            }).then((response) => {
+              console.log(response.data);
+              setEmail("");
+              Alert.alert(
+                "Success",
+                "If the email is registered, you will receive password reset instructions."
+              );
+              navigation.navigate("Login");
+            });
+          } catch (error) {
+            console.log(error);
+            Alert.alert("Error", "Something went wrong. Please try again.");
+          }
+        }}
+      >
         <Text style={styles.text}>Send</Text>
       </TouchableOpacity>
     </View>

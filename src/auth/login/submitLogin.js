@@ -25,7 +25,6 @@ export async function submitLogin(
       dispatch(setToken(response.data.accessToken));
     }
 
-    // Navigate after success
     navigation.navigate("Home");
     resetForm();
   } catch (error) {

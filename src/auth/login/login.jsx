@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { Formik } from "formik";
 import Input from "../../component/input";
@@ -8,9 +8,17 @@ import SubmitButton from "../../component/submitButton";
 import { submitLogin } from "./submitLogin";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useDispatch } from "react-redux";
+import { store } from "../../redux/store";
+import { isTokenExpire } from "../../redux/APIClien";
 
 export const LoginPage = ({ navigation }) => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    const token = store.getState().auth.token;
+    if (!isTokenExpire(token)) {
+      navigation.navigate("Home");
+    }
+  }, []);
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={{ flex: 1 }}

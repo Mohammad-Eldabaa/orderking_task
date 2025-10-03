@@ -6,17 +6,17 @@ import { v4 } from "uuid";
 import { checkToken } from "./checkToken";
 import { useSelector } from "react-redux";
 
-export default function HomePage() {
-  const [number, setNumber] = useState("516516516515616516515");
+export default function HomePage({ navigation }) {
+  const [number, setNumber] = useState(v4());
   const [times, setTimes] = useState(1);
   const token = useSelector((state) => state.auth.token);
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
+      setTimes((prev) => prev + 1);
       setNumber(v4());
-      setTimes(times + 1);
-      // checkToken(token);
-    }, 5000);
-  });
+      checkToken(token, navigation);
+    }, 60000);
+  }, []);
   return (
     <View
       style={[
