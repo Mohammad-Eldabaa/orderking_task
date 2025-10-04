@@ -12,9 +12,7 @@ export default function HomePage({ navigation }) {
   const token = useSelector((state) => state.auth.token);
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimes((prev) => prev + 1);
-      setNumber(v4());
-      checkToken(token, navigation);
+      checkToken(token, navigation, setNumber, setTimes);
     }, 60000);
   }, []);
   return (
